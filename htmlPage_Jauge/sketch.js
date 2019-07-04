@@ -1,0 +1,106 @@
+// Declare a "SerialPort" object
+var serial;
+var latestData = "waiting for data";  // you'll use this to write incoming data to the canvas
+
+var fillRatio = 0;
+
+let img;
+function preload() {
+  img = loadImage('assets/page-Suivi-sans-jauge.png');
+}
+
+function setup() {
+  createCanvas(1280, 720);
+
+  // Instantiate our SerialPort object
+  serial = new p5.SerialPort();
+
+  serial.list();
+  serial.open("/dev/cu.usbmodem1421");
+
+  // Here are the callbacks that you can register
+
+  // When we connect to the underlying server
+  serial.on('connected', serverConnected);
+  // When we some data from the serial port
+  serial.on('data', gotData);
+  // When or if we get an error
+  serial.on('error', gotError);
+  // When our serial port is opened and ready for read/write
+  serial.on('open', gotOpen);
+
+  
+
+}
+
+// We are connected and ready to go
+function serverConnected() {
+  console.log("Connected to Server");
+}
+
+// Connected to our serial device
+function gotOpen() {
+  console.log("Serial Port is Open");
+}
+
+// Ut oh, here is an error, let's log it
+function gotError(theerror) {
+  console.log(theerror);
+}
+
+// There is data available to work with from the serial port
+function gotData() {
+  var currentString = serial.readLine();  // read the incoming string
+  trim(currentString);                    // remove any trailing whitespace
+  
+  if (!currentString) return;             // if the string is empty, do no more
+  if(currentString == "+1"){
+    fillRatio++;
+    fillRatio %= 100;
+    serial.write(str(fillRatio) + '\n');
+  
+  }
+  
+  console.log(currentString);             // println the string
+  latestData = currentString;            // save it for the draw method
+  
+}
+
+function draw() {
+  
+  image(img, 0, 0);
+  
+  //background(255,255,255);
+  //text(latestData, 10, 10);
+     
+  // Score du quartier ------
+  fill('#B9DCBE');
+  noStroke();
+  var maxRelativeSizeYQuartier = 110;
+  var relativeSizeYQuartier = maxRelativeSizeYQuartier * (fillRatio/100);
+  rect(960, 655 - 260, 18, 260, 18);
+  rect(960, 655 - 250 - relativeSizeYQuartier,18, relativeSizeYQuartier, 18);
+  
+  fill('black');
+  var relativeSizeYQuartierText = 655 - 250 - relativeSizeYQuartier + 10* (fillRatio/100);
+  rect(960, relativeSizeYQuartierText, 20, 3);
+  textSize(12);
+  textAlign(LEFT, CENTER);
+  text('Score de mon quartier', 1010, relativeSizeYQuartierText, 100, 30);
+  
+  
+  // Score de ma poubelle ------
+  fill('#467660');
+  noStroke();
+  var maxRelativeSizeYMaPoubelle = 360;
+  var relativeSizeYMaPoubelle = maxRelativeSizeYMaPoubelle * (fillRatio/100);
+  rect(960,655 - relativeSizeYMaPoubelle,18, relativeSizeYMaPoubelle, 18);
+  
+  fill('black');
+  var relativeSizeYMaPoubelleText = 655 - relativeSizeYMaPoubelle + 10* (fillRatio/100);
+  rect(960, relativeSizeYMaPoubelleText, 20, 3);
+  textSize(12);
+  textAlign(LEFT, CENTER);
+  text('Score de ma poubelle', 1010, relativeSizeYMaPoubelleText, 100, 30);
+  
+}

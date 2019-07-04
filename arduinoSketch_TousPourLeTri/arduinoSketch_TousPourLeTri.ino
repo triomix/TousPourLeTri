@@ -78,7 +78,7 @@ void loop() {
   // READ SERIAL --------------------------------------------------------------------------
   // print the string when a newline arrives:
   if (stringComplete) {
-    Serial.println("Read !!!!!! : " + inputString);
+    Serial.println("Read : " + inputString);
     fillRatio = inputString.toInt();
     // clear the string:
     inputString = "";
