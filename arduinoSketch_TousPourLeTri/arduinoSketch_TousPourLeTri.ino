@@ -70,13 +70,14 @@ void loop() {
     //print out the value of the pushbutton
     Serial.println("+1");
     
-  for(int iColor=0;iColor<5;i++){
+  for(int iColor=0;iColor<10;iColor++){
     // Then color
-    for(int iPixels=0;iPixels<NUMPIXELS;i++){
+    for(int iPixels=0;iPixels<NUMPIXELS;iPixels++){
       // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i, pixels.Color(40 * iColor,150,0)); // Moderately bright green color.
+      pixels.setPixelColor(iPixels, pixels.Color(200 * iColor / 10,150,0)); // Moderately bright green color.
     }
     pixels.show(); // This sends the updated pixel color to the hardware.
+    delay(100);
   }
     
   }
