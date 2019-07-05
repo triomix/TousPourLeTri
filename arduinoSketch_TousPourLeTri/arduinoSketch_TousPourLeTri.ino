@@ -69,17 +69,8 @@ void loop() {
     // Impulse
     //print out the value of the pushbutton
     Serial.println("+1");
-    
-  for(int iColor=0;iColor<10;iColor++){
-    // Then color
-    for(int iPixels=0;iPixels<NUMPIXELS;iPixels++){
-      // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(iPixels, pixels.Color(200 * iColor / 10,150,0)); // Moderately bright green color.
-    }
-    pixels.show(); // This sends the updated pixel color to the hardware.
-    delay(100);
-  }
-    
+    //delay(1000);
+  
   }
   openCloseVal = openCloseValInstant;
   // --------------------------------------------------------------------------------------
@@ -88,11 +79,28 @@ void loop() {
   // READ SERIAL --------------------------------------------------------------------------
   // print the string when a newline arrives:
   if (stringComplete) {
-    Serial.println("Read : " + inputString);
+    //Serial.println("Read : " + inputString);
     fillRatio = inputString.toInt();
     // clear the string:
     inputString = "";
     stringComplete = false;
+
+    //First Black
+  for(int i=0;i<NUMPIXELS;i++){
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    pixels.setPixelColor(i, pixels.Color(0,0,0)); // Moderately bright green color.
+  }
+  pixels.show(); // This sends the updated pixel color to the hardware.
+  
+  int realNumOfPixels = NUMPIXELS * (fillRatio / 100.0f);
+  // Then color
+  for(int iPixels=0;iPixels<realNumOfPixels;iPixels++){
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    pixels.setPixelColor(iPixels, pixels.Color(0,255,0)); // Moderately bright green color.
+    pixels.show(); // This sends the updated pixel color to the hardware.
+    delay(50);
+   }
+    
   }
   // --------------------------------------------------------------------------------------
   
@@ -111,7 +119,7 @@ void loop() {
   // Then color
   for(int i=0;i<realNumOfPixels;i++){
     // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-    pixels.setPixelColor(i, pixels.Color(0,150,0)); // Moderately bright green color.
+    pixels.setPixelColor(i, pixels.Color(0,255,0)); // Moderately bright green color.
   }
   pixels.show(); // This sends the updated pixel color to the hardware.
   // --------------------------------------------------------------------------------------

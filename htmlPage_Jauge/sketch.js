@@ -20,7 +20,7 @@ function setup() {
 
   serial.list();
   // MAC OsX Port
-  serial.open("/dev/cu.usbmodem1411");
+  serial.open("/dev/cu.usbmodem14111");
   // Ubuntu Port
   //serial.open("/dev/ttyACM0");
 
@@ -79,21 +79,22 @@ function draw() {
   
   //background(255,255,255);
   //text(latestData, 10, 10);
-     
+  var jaugeX = 855;
+  var jaugeY = 652;
   // Score du quartier ------
   fill('#B9DCBE');
   noStroke();
   var maxRelativeSizeYQuartier = 110;
   var relativeSizeYQuartier = maxRelativeSizeYQuartier * (fillRatio/100);
-  rect(960, 655 - 260, 18, 260, 18);
-  rect(960, 655 - 250 - relativeSizeYQuartier,18, relativeSizeYQuartier, 18);
+  rect(jaugeX, jaugeY - 260, 18, 260, 18);
+  rect(jaugeX, jaugeY - 250 - relativeSizeYQuartier,18, relativeSizeYQuartier, 18);
   
   fill('black');
-  var relativeSizeYQuartierText = 655 - 250 - relativeSizeYQuartier + 10* (fillRatio/100);
-  rect(960, relativeSizeYQuartierText, 20, 3);
+  var relativeSizeYQuartierText = jaugeY - 250 - relativeSizeYQuartier + 10* (fillRatio/100);
+  rect(jaugeX, relativeSizeYQuartierText, 20, 3);
   textSize(12);
   textAlign(LEFT, CENTER);
-  text('Score de mon quartier', 1010, relativeSizeYQuartierText, 100, 30);
+  text('Score de mon quartier', jaugeX + 25, relativeSizeYQuartierText, 100, 30);
   
   
   // Score de ma poubelle ------
@@ -101,14 +102,14 @@ function draw() {
   noStroke();
   var maxRelativeSizeYMaPoubelle = 360;
   var relativeSizeYMaPoubelle = maxRelativeSizeYMaPoubelle * (fillRatio/100);
-  rect(960,655 - relativeSizeYMaPoubelle,18, relativeSizeYMaPoubelle, 18);
+  rect(jaugeX,jaugeY - relativeSizeYMaPoubelle,18, relativeSizeYMaPoubelle, 18);
   
   fill('black');
-  var relativeSizeYMaPoubelleText = 655 - relativeSizeYMaPoubelle + 10* (fillRatio/100);
-  rect(960, relativeSizeYMaPoubelleText, 20, 3);
+  var relativeSizeYMaPoubelleText = jaugeY - relativeSizeYMaPoubelle + 10* (fillRatio/100);
+  rect(jaugeX, relativeSizeYMaPoubelleText, 20, 3);
   textSize(12);
   textAlign(LEFT, CENTER);
-  text('Score de ma poubelle', 1010, relativeSizeYMaPoubelleText, 100, 30);
-  text(str(fillRatio) + " %", 1110, relativeSizeYMaPoubelleText + 10);
+  text('Score de ma poubelle', jaugeX + 25, relativeSizeYMaPoubelleText, 100, 30);
+  text(str(fillRatio) + " %", jaugeX + 125, relativeSizeYMaPoubelleText + 10);
   
 }
