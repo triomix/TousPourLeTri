@@ -70,6 +70,15 @@ void loop() {
     //print out the value of the pushbutton
     Serial.println("+1");
     
+  for(int iColor=0;iColor<5;i++){
+    // Then color
+    for(int iPixels=0;iPixels<NUMPIXELS;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+      pixels.setPixelColor(i, pixels.Color(40 * iColor,150,0)); // Moderately bright green color.
+    }
+    pixels.show(); // This sends the updated pixel color to the hardware.
+  }
+    
   }
   openCloseVal = openCloseValInstant;
   // --------------------------------------------------------------------------------------
