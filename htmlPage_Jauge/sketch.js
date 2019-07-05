@@ -16,7 +16,10 @@ function setup() {
   serial = new p5.SerialPort();
 
   serial.list();
-  serial.open("/dev/cu.usbmodem1421");
+  // MAC OsX Port
+  //serial.open("/dev/cu.usbmodem1421");
+  // Ubuntu Port
+  serial.open("/dev/ttyACM0");
 
   // Here are the callbacks that you can register
 
