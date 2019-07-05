@@ -5,8 +5,11 @@ var latestData = "waiting for data";  // you'll use this to write incoming data 
 var fillRatio = 0;
 
 let img;
+let myFont;
+
 function preload() {
   img = loadImage('assets/page-Suivi-sans-jauge.png');
+  myFont = loadFont("assets/Syne-Regular.ttf");
 }
 
 function setup() {
@@ -17,9 +20,9 @@ function setup() {
 
   serial.list();
   // MAC OsX Port
-  //serial.open("/dev/cu.usbmodem1421");
+  serial.open("/dev/cu.usbmodem1411");
   // Ubuntu Port
-  serial.open("/dev/ttyACM0");
+  //serial.open("/dev/ttyACM0");
 
   // Here are the callbacks that you can register
 
@@ -72,6 +75,7 @@ function gotData() {
 function draw() {
   
   image(img, 0, 0);
+  //textFont(myFont);
   
   //background(255,255,255);
   //text(latestData, 10, 10);
@@ -105,5 +109,6 @@ function draw() {
   textSize(12);
   textAlign(LEFT, CENTER);
   text('Score de ma poubelle', 1010, relativeSizeYMaPoubelleText, 100, 30);
+  text(str(fillRatio) + " %", 1110, relativeSizeYMaPoubelleText + 10);
   
 }
