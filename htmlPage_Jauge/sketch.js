@@ -20,9 +20,9 @@ function setup() {
 
   serial.list();
   // MAC OsX Port
-  serial.open("/dev/cu.usbmodem14111");
+  //serial.open("/dev/cu.usbmodem14111");
   // Ubuntu Port
-  //serial.open("/dev/ttyACM0");
+  serial.open("/dev/ttyACM0");
 
   // Here are the callbacks that you can register
 
